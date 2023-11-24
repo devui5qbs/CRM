@@ -28,8 +28,7 @@ Make sure you have Node.js installed on your machine. You can download it from [
 
    ```bash
    npm install
-   cd back && npm install
-   cd ../client && npm install
+   npm run dev
    ```
 
 ### Development
