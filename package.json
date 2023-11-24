@@ -9,7 +9,7 @@
     "start:backend": "cd back && npm run start:dev",
     "start:frontend": "cd client && npm run dev",
     "install:backend": "concurrently \" cd back && npm i && cd client && npm i\" \"npm run install:backend:prisma\"",
-    "install:backend:prisma": "cd back && npx prisma generate && npx prisma db push",
+    "install:backend:prisma": "concurrently \" cd back && npx prisma generate\" \"cd back && npx prisma db push\"",
     "install:frontend": "cd client && npm i"
   }
 }

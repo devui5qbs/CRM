@@ -2,16 +2,23 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { AuthDto, EmailDto, RegisterDto } from '../dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
-  
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
+
   async hashKey(key: string) {
     const saltOrRounds = 10;
     const hash = await bcrypt.hash(key, saltOrRounds);
     return hash;
   }
 
+  async generateToken(user: AuthDto | RegisterDto) {
+    return { token: await this.jwtService.signAsync(user) };
+  }
   async userFind(email: string) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -29,6 +36,7 @@ export class AuthService {
     if (user) throw new NotFoundException('this email is already taken.');
 
     const hash = await this.hashKey(password);
+
     const newUser = {
       username,
       email,
@@ -38,12 +46,13 @@ export class AuthService {
       firstName,
       lastName,
     };
-
-    return this.prisma.user.create({
+    this.prisma.user.create({
       data: {
         ...newUser,
       },
     });
+
+    return await this.generateToken(newUser);
   }
 
   async signIn(dto: AuthDto) {
@@ -60,7 +69,7 @@ export class AuthService {
         autorized: true,
       },
     });
-    return userAutorized;
+    return await this.generateToken(userAutorized);
   }
 
   async logOut(dto: EmailDto) {
