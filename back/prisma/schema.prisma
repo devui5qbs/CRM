@@ -19,5 +19,4 @@ model User {
   autorized Boolean
   firstName String
   lastName  String
-  createdAt DateTime @map("created_at")
 }
