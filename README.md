@@ -27,9 +27,10 @@ Make sure you have Node.js installed on your machine. You can download it from [
 3. Install dependencies for both the backend and frontend:
 
    ```bash
-   npm install
-   npm run dev
+   npm run install
    ```
+
+This command will concurrently install dependencies for both the backend and frontend.
 
 ### Development
 
@@ -56,6 +57,24 @@ The backend server runs on `http://localhost:3000`, and the frontend server runs
 - The frontend code is located in the `client` directory.
 
 Feel free to explore each directory for more details on the project structure.
+
+### Dependency Installation
+
+If you need to install dependencies individually, you can use the following commands:
+
+- Install backend dependencies:
+
+  ```bash
+  npm run install:backend
+  ```
+
+  This command will install backend dependencies and generate Prisma client.
+
+- Install frontend dependencies:
+
+  ```bash
+  npm run install:frontend
+  ```
 
 ## Versioning
 

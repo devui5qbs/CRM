@@ -5,18 +5,18 @@ interface UserState {
   user: IUser;
   setUser: (user: IUser) => void;
 }
-
+const initialState = {
+  username: "",
+  email: "",
+  autorized: false,
+  id: "",
+  role: "client",
+  password: "",
+  firstName: "",
+  lastName: "",
+}
 export const UserStore = create<UserState>((set) => ({
-  user: {
-    username: "",
-    email: "",
-    autorized: false,
-    id: "",
-    role: "client",
-    password: "",
-    firstName: "",
-    lastName: "",
-  },
+  user: initialState,
   setUser: (user: IUser) => {
     set(() => ({
       user,
