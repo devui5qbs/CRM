@@ -4,7 +4,8 @@ import { AuthService } from "../services/auth-services";
 export const SignInCtrl = async (email: string, password: string) => {
   try {
     const data = await AuthService.auth(email, password);
-    const resonse: IUser = data.data;
+    const resonse: { token: string } = data.data;
+    localStorage.setItem("token", resonse.token);
     return resonse;
   } catch (error: any) {
     const e: string = error.response.data.message;
@@ -34,7 +35,7 @@ export const SignUpCtrl = async (
       firstName,
       lastName
     );
-    const resonse: IUser = data.data;
+    const resonse: string = data.data;
     return resonse;
   } catch (error: any) {
     const e: string = error.response.data.message;

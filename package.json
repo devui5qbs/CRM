@@ -11,5 +11,8 @@
     "install:backend": "concurrently \" cd back && npm i && cd client && npm i\" \"npm run install:backend:prisma\"",
     "install:backend:prisma": "concurrently \" cd back && npx prisma generate\" \"cd back && npx prisma db push\"",
     "install:frontend": "cd client && npm i"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
   }
 }
