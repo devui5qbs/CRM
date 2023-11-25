@@ -46,13 +46,11 @@ export class AuthService {
       firstName,
       lastName,
     };
-    this.prisma.user.create({
+    return this.prisma.user.create({
       data: {
         ...newUser,
       },
     });
-
-    return await this.generateToken(newUser);
   }
 
   async signIn(dto: AuthDto) {
