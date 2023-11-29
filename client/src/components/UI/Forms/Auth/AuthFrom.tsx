@@ -59,14 +59,14 @@ const AuthFrom = ({ type, redirectClick }: IAuthFromProps) => {
 
   const signUp = async (data: IAuth) => {
     const { signEmail, signPassword, username, firstName, lastName } = data;
-    const user: IUser | string = await SignUpCtrl(
-      signEmail,
-      signPassword,
-      username,
-      firstName,
-      lastName
-    );
-    setUserOnzustand(user);
+      const user: IUser | string = await SignUpCtrl(
+        signEmail,
+        signPassword,
+        username,
+        firstName,
+        lastName,
+      );
+      setUserOnzustand(user);
   };
 
   const onSubmit: SubmitHandler<IAuth> = (data) => {

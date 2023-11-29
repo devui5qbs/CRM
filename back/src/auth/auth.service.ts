@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { AuthDto, EmailDto, RegisterDto } from '../dto/auth.dto';
+import { AuthDto, EmailDto, RegisterDto, SoketDto } from '../dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -19,10 +19,15 @@ export class AuthService {
   async generateToken(user: AuthDto | RegisterDto) {
     return { token: await this.jwtService.signAsync(user) };
   }
+
   async userFind(email: string) {
     const user = await this.prisma.user.findUnique({
       where: {
         email,
+      },
+      include: {
+        chats: true,
+        messages: true,
       },
     });
     return user;
@@ -41,11 +46,12 @@ export class AuthService {
       username,
       email,
       password: hash,
-      autorized: true,
+      authorized: true,
       role: 'client',
       firstName,
       lastName,
     };
+
     return this.prisma.user.create({
       data: {
         ...newUser,
@@ -64,10 +70,19 @@ export class AuthService {
     const userAutorized = await this.prisma.user.update({
       where: { email: user.email },
       data: {
-        autorized: true,
+        authorized: true,
+      },
+      include: {
+        chats: true,
+        messages: true,
       },
     });
     return await this.generateToken(userAutorized);
+  }
+
+  async getUsetFromTokenText(dto: { token: string }) {
+    const { token } = dto;
+    return await this.jwtService.verify(token);
   }
 
   async logOut(dto: EmailDto) {
@@ -77,7 +92,7 @@ export class AuthService {
     await this.prisma.user.update({
       where: { email: dbUser.email },
       data: {
-        autorized: false,
+        authorized: false,
       },
     });
     return;

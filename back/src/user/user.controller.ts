@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { EmailDto } from 'src/dto/auth.dto';
-import { ChangeUserRoleDto } from 'src/dto/user.dto';
+import { ChangeUserRoleDto, CreateChatDto } from 'src/dto/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,4 +23,7 @@ export class UserController {
   async changeUsersRole(@Body() createDto: ChangeUserRoleDto) {
     return this.userService.changeUsersRole(createDto);
   }
+
+
+
 }

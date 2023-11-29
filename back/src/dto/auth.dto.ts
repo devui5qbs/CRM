@@ -39,3 +39,13 @@ export class EmailDto {
   @IsNotEmpty()
   email: string;
 }
+
+export class SoketDto {
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  socketId: string;
+}

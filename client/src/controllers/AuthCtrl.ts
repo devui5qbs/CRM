@@ -1,3 +1,4 @@
+import { io } from "socket.io-client";
 import { IUser } from "../interfaces/IUser";
 import { AuthService } from "../services/auth-services";
 
@@ -17,24 +18,18 @@ export const SignUpCtrl = async (
   password: string,
   username: string,
   firstName: string,
-  lastName: string
+  lastName: string,
 ) => {
   try {
-    console.log({
-      email,
-      password,
-      username,
-      firstName,
-      lastName,
-    });
 
     const data = await AuthService.register(
       email,
       password,
       username,
       firstName,
-      lastName
+      lastName,
     );
+
     const resonse: string = data.data;
     return resonse;
   } catch (error: any) {

@@ -7,4 +7,5 @@ export interface IUser {
   autorized: boolean;
   firstName: string;
   lastName: string;
+  socketId: string;
 }

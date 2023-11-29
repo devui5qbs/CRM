@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { IUser } from "../interfaces/IUser";
 
 interface UserState {
@@ -14,7 +14,8 @@ const initialState = {
   password: "",
   firstName: "",
   lastName: "",
-}
+  socketId: "",
+};
 export const UserStore = create<UserState>((set) => ({
   user: initialState,
   setUser: (user: IUser) => {

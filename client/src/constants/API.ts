@@ -5,4 +5,5 @@ export const API = {
    LOGOUT:'/auth/logout',
    CHANGEROLE:'/user/role',
    USERS:'/user',
+   TEST:"/auth/test"
 }

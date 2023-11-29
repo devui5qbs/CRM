@@ -15,7 +15,7 @@ const register = async (
   password: string,
   username: string,
   firstName: string,
-  lastName: string
+  lastName: string,
 ) => {
   const body = {
     email,
